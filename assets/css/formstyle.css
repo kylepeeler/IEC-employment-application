@@ -1,6 +1,4 @@
 @charset "UTF-8";
-#title {
-}
 .form-group p label {
 	font-weight: normal;
 }
@@ -14,10 +12,6 @@
 	margin-left: auto;
 	margin-bottom: 30px;
 	display: block;
-}
-#msmheader   {
-	padding-top: 5px;
-	padding-bottom: 5px;
 }
 .boxHeading h3 {
 	font-size: 16px;

@@ -16,7 +16,7 @@ $(document).ready(function() {
 	});
 
 	$("#applicationDate").val(getFormattedDate(new Date()));
-	toggleYNResponse("convictedOfFelony");
+	toggleYNResponse("convictedOfCrime");
 	toggleYNResponse("criminalChargesPending");
 	toggleYNResponse("disciplinaryActions");
 	toggleYNResponse("previousApplicant");
@@ -127,64 +127,16 @@ function submitForm() {
 	"use strict";
 	// var authPassed = true;
 	var rsp = grecaptcha.getResponse();
-	// for (var n = 1; n <= 9; n++) {
-	// 	if (!$("#authorization" + n).prop('checked')) {
-	// 		authPassed = false;
-	// 	}
-	// }
-	// if ($("#firstName").val() === "") {
-	// 	$("#captchaResponse").addClass("alert-danger");
-	// 	$("#captchaMsg").text("Error:");
-	// 	$("#captchaFullMsg").text("You must fill the 'First Name' field before submitting.");
-	// 	$("#captchaResponse").fadeIn();
-	// 	return;
-	// } else if ($("#lastName").val() === "") {
-	// 	$("#captchaResponse").addClass("alert-danger");
-	// 	$("#captchaMsg").text("Error:");
-	// 	$("#captchaFullMsg").text("You must fill the 'Last Name' field before submitting.");
-	// 	$("#captchaResponse").fadeIn();
-	// 	return;
-	// } else if($("#programEligibilitySign").val() === ""){
-	// 	$("#captchaResponse").addClass("alert-danger");
-	// 	$("#captchaMsg").text("Error:");
-	// 	$("#captchaFullMsg").text("You must sign the 'Program Eligibility' section before submitting.");
-	// 	$("#captchaResponse").fadeIn();
-	// 	return;
-	// }else if($("#programEligibilitySignDate").val() === ""){
-	// 	$("#captchaResponse").addClass("alert-danger");
-	// 	$("#captchaMsg").text("Error:");
-	// 	$("#captchaFullMsg").text("You must date the 'Program Eligibility' section before submitting.");
-	// 	$("#captchaResponse").fadeIn();
-	// 	return;
-	// }else if (!authPassed) {
-	// 	$("#captchaResponse").addClass("alert-danger");
-	// 	$("#captchaMsg").text("Error:");
-	// 	$("#captchaFullMsg").text("You must check all of the authorizations before you can submit.");
-	// 	$("#captchaResponse").fadeIn();
-	// 	return;
-	// }else if($("#authorizationSign").val() === ""){
-	// 	$("#captchaResponse").addClass("alert-danger");
-	// 	$("#captchaMsg").text("Error:");
-	// 	$("#captchaFullMsg").text("You must sign the 'Authorization' section before submitting.");
-	// 	$("#captchaResponse").fadeIn();
-	// 	return;
-	// }else if($("#authorizationSignDate").val() === ""){
-	// 	$("#captchaResponse").addClass("alert-danger");
-	// 	$("#captchaMsg").text("Error:");
-	// 	$("#captchaFullMsg").text("You must date the 'Authorization' section before submitting.");
-	// 	$("#captchaResponse").fadeIn();
-	// 	return;
-	// } else if (rsp.length === 0) {
-	// 	$("#captchaResponse").addClass("alert-danger");
-	// 	$("#captchaMsg").text("Error:");
-	// 	$("#captchaFullMsg").text("You must complete the captcha below before you can submit.");
-	// 	$("#captchaResponse").fadeIn();
-	// 	return;
-	// } else {
+	if (rsp.length === 0) {
+		$("#captchaResponse").addClass("alert-danger");
+		$("#captchaMsg").text("Error:");
+		$("#captchaFullMsg").text("You must complete the captcha below before you can submit.");
+		$("#captchaResponse").fadeIn();
+	} else {
 		$('#' + FORM_ID).fadeTo("fast", 0.5);
 		alert("DEBUG: Form submit!")
 		//$('#' + form).submit();
-
+	}
 }
 
 function toggleResponseOnNo(id) {
