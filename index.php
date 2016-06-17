@@ -22,8 +22,14 @@
 
 </head>
 <body>
-<form action="process-form/formFill.php" method="post" id="IECApplicationForm" enctype="multipart/form-data">
-
+<form method="post" id="IECApplicationForm" enctype="multipart/form-data" novalidate>
+<?php
+if (isset($_GET['position']) && $_GET['position']) {
+    $position = $_GET['position'];
+} else {
+    $position = '';
+}
+?>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
@@ -36,7 +42,7 @@
 				<div class="form-group">
 					<label class="control-label" for="positionApplyingFor">Position Applying For:</label>
 					<input type="text" name="positionApplyingFor" class="form-control" id="positionApplyingFor"
-						   placeholder="Position">
+						   placeholder="Position" value="<?=$position?>">
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -64,9 +70,9 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label class="control-label" for="middleName">Middle Name:</label>
-						<input type="text" name="middleName" class="form-control" id="middleName"
-							   placeholder="Middle Name">
+						<label class="control-label" for="middleInitial">Middle Initial:</label>
+						<input type="text" name="middleInitial" class="form-control" id="middleInitial"
+							   placeholder="Middle Initial" maxlength="1">
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -75,22 +81,173 @@
 						<input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name">
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
+
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label" for="phone">Phone Number:</label>
+							<input type="tel" class="form-control" id="phone" name="phone"
+									 placeholder="Phone Number">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="emailAddress" class="control-label">Email Address:</label>
+							<input type="text" class="form-control" id="emailAddress" name="emailAddress"
+								   placeholder="Email Address">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group addresslinepadding addressline1desktop">
+							<label class="control-label" for="applicantStreet">Address:</label>
+							<input type="text" class="form-control "
+								   id="applicantStreet" placeholder="Street" style="display: block;" name="applicantStreet">
+								 </div>
+						<div class="form-group addresslinepadding">
+
+							<input type="text" class="form-control " placeholder="Apartment/Unit #" name="applicantAptUnit" id="applicantAptUnit">
+						</div>
+						<div class="form-group addresslinepadding">
+
+							<input type="text" class="form-control" placeholder="City"
+								   style="display: block;" id="applicantCity" name="applicantCity">
+								 </div>
+								 <div class="form-group addresslinepadding addressline3desktop">
+
+							<input type="text" class="form-control "
+								   placeholder="State" style="display: block;" name="applicantState" id="applicantState"
+								   maxlength="2">
+								 </div>
+								 <div class="form-group addressline4desktop addresslinepadding">
+									 <input type="text" class="form-control "
+												placeholder="Zip Code" style="display: block;" id="applicantZip" name="applicantZip">
+								 </div>
+
+						</div>
+					</div>
+					<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="dateBeginWorking" class="control-label">Date you can begin working:</label>
+							<input id="dateBeginWorking" type="text" class="form-control datepicker" name="dateBeginWorking"
+								   placeholder="MM/DD/YYYY">
+						</div>
+					</div>
+
+
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="socialSecurityNumber" class="control-label">Social Security Number:</label>
+							<input id="socialSecurityNumber" type="text" class="form-control" name="socialSecurityNumber"
+								   placeholder="XXX-XX-XXXX">
+						</div>
+					</div>
+
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="desiredSalaryRangeFrom" class="control-label">Desired Salary Range From:</label>
+							<input id="desiredSalaryRangeFrom" type="text" class="form-control"
+								   name="desiredSalaryRangeFrom" placeholder="From">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="desiredSalaryRangeTo" class="control-label"><br/>To:</label>
+							<input id="desiredSalaryRangeTo" type="text" class="form-control" name="desiredSalaryRangeTo"
+								   placeholder="To">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="convictedOfFelony_Yes" class="control-label">Have you been convicted of a felony?</label>
+							<p>
+								<label>
+									<input type="radio" name="convictedOfFelony" value="Yes" id="convictedOfFelony_Yes"> Yes
+								</label>
+								<br>
+								<label>
+									<input type="radio" name="convictedOfFelony" value="No" id="convictedOfFelony_No"> No
+								</label>
+								<br>
+							</p>
+							<!-- TODO: Ask if needed -->
+							<!-- <p class="help-block">
+								<em>Note: Criminal history convictions will not necessarily disqualify you from employment,
+									but failure to disclose complete information about crimes not expunged will disqualify
+									you from employment.</em>
+							</p> -->
+							<div id="convictedOfFelony_response">
+								<label class="control-label" for="convictedOfFelonyExplanation">If yes, please
+									explain:</label>
+								<input type="text" class="form-control" id="convictedOfFelonyExplanation"
+										 placeholder="Explain" name="convictedOfFelonyExplanation">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="citizenOfUS_Yes" class="control-label">Are you a citizen of the United States?</label>
+							<p>
+								<label>
+									<input type="radio" name="citizenOfUS" value="Yes" id="citizenOfUS_Yes"> Yes
+								</label>
+								<br>
+								<label>
+									<input type="radio" name="citizenOfUS" value="No" id="citizenOfUS_No"> No
+								</label>
+								<br>
+							</p>
+							<div id="citizenOfUS_response">
+								<label class="control-label" for="authorizedWorkInUS_Yes">If yes, please
+									explain:</label>
+									<p>
+										<label>
+											<input type="radio" name="authorizedWorkInUS" value="Yes" id="authorizedWorkInUS_Yes"> Yes
+										</label>
+										<br>
+										<label>
+											<input type="radio" name="authorizedWorkInUS" value="No" id="authorizedWorkInUS_No"> No
+										</label>
+										<br>
+									</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="previouslyWorkedIEC_Yes" class="control-label">Have you previously worked for this company?</label>
+							<p>
+								<label>
+									<input type="radio" name="previouslyWorkedIEC" value="Yes" id="previouslyWorkedIEC_Yes">
+									Yes
+								</label>
+								<br>
+								<label>
+									<input type="radio" name="previouslyWorkedIEC" value="No" id="previouslyWorkedIEC_No">
+									No
+								</label>
+								<br>
+							</p>
+							<div id="previouslyWorkedIEC_response">
+								<label class="control-label" for="previouslyWorkedIECWhenPosition">If yes, when/what
+									position?</label>
+								<input type="text" class="form-control" id="previouslyWorkedIECWhenPosition"
+										 placeholder="Explain" name="previouslyWorkedIECWhenPosition">
+							</div>
+						</div>
+					</div>
+				</div> <!-- End Row -->
+
+
+
+				<!-- <div class="col-md-4">
 					<div class="form-group">
 						<label for="otherName" class="control-label">Other (Legal) Name(s):</label>
 						<input type="text" class="form-control" id="otherName" name="otherName"
 							   placeholder="Other (Legal) Name(s)">
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label class="control-label" for="homePhone">Home Phone Number:</label>
-						<input type="text" class="form-control" id="homePhone" name="homePhone"
-							   placeholder="Home Phone Number">
-					</div>
-				</div>
+
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="control-label" for="cellPhone">Cell Phone Number:</label>
@@ -99,37 +256,16 @@
 					</div>
 				</div>
 
-			</div>
-			<div class="row">
+
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="bestTimeOfDayToCall" class="control-label">Best Time of Day to Call:</label>
 						<input type="text" class="form-control" id="bestTimeOfDayToCall" name="bestTimeOfDayToCall"
 							   placeholder="Best Time of Day to Call">
 					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="emailAddress" class="control-label">Email Address:</label>
-						<input type="text" class="form-control" id="emailAddress" name="emailAddress"
-							   placeholder="Email Address">
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group" style="display: block;">
-						<label class="control-label" for="applicantStreet">Address:</label>
-						<input type="text" class="form-control addresslinepadding addressline1desktop"
-							   id="applicantStreet" placeholder="Street" style="display: block;" name="applicantStreet">
-						<input type="text" class="form-control addresslinepadding" placeholder="City"
-							   style="display: block;" id="applicantCity" name="applicantCity">
-						<input type="text" class="form-control addresslinepadding addressline3desktop"
-							   placeholder="State" style="display: block;" name="applicantState" id="applicantState"
-							   maxlength="2">
-						<input type="text" class="form-control addressline4desktop addresslinepadding"
-							   placeholder="Zip Code" style="display: block;" id="applicantZip" name="applicantZip">
-					</div>
-				</div>
-			</div>
+				</div> -->
+
+
 		</fieldset>
 		<fieldset>
 			<legend>Referral Source</legend>
@@ -147,27 +283,8 @@
 		<fieldset>
 			<legend>Employment Information</legend>
 			<div class="row">
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="dateBeginWorking" class="control-label">Date you can begin working:</label>
-						<input id="dateBeginWorking" type="text" class="form-control datepicker" name="dateBeginWorking"
-							   placeholder="MM/DD/YYYY">
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="form-group">
-						<label for="desiredSalaryRangeFrom" class="control-label">Desired Salary Range From:</label>
-						<input id="desiredSalaryRangeFrom" type="text" class="form-control"
-							   name="desiredSalaryRangeFrom" placeholder="From">
-					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="form-group">
-						<label for="desiredSalaryRangeTo" class="control-label"><br/>To:</label>
-						<input id="desiredSalaryRangeTo" type="text" class="form-control" name="desiredSalaryRangeTo"
-							   placeholder="To">
-					</div>
-				</div>
+
+
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="hoursWeekPrefer" class="control-label">How many hours a week do you prefer to
@@ -194,33 +311,7 @@
 						</p>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="convictedOfCrime_Yes" class="control-label">Have you been convicted of a crime or
-							plead guilty or no contest to any offense that has not been expunged by a court?</label>
-						<p>
-							<label>
-								<input type="radio" name="convictedOfCrime" value="Yes" id="convictedOfCrime_Yes"> Yes
-							</label>
-							<br>
-							<label>
-								<input type="radio" name="convictedOfCrime" value="No" id="convictedOfCrime_No"> No
-							</label>
-							<br>
-						</p>
-						<p class="help-block">
-							<em>Note: Criminal history convictions will not necessarily disqualify you from employment,
-								but failure to disclose complete information about crimes not expunged will disqualify
-								you from employment.</em>
-						</p>
-						<div id="convictedOfCrime_response">
-							<label class="control-label" for="convictedOfCrimeExplanation">If yes, please
-								explain:</label>
-							<input type="text" class="form-control" id="convictedOfCrimeExplanation"
-								   placeholder="Explain" name="convictedOfCrimeExplanation">
-						</div>
-					</div>
-				</div>
+
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="criminalChargesPending_Yes" class="control-label">Any current criminal charges now
@@ -296,30 +387,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="previouslyWorkedMSM_Yes" class="control-label">Have you previously worked at
-							Methodist Sports Medicine?</label>
-						<p>
-							<label>
-								<input type="radio" name="previouslyWorkedMSM" value="Yes" id="previouslyWorkedMSM_Yes">
-								Yes
-							</label>
-							<br>
-							<label>
-								<input type="radio" name="previouslyWorkedMSM" value="No" id="previouslyWorkedMSM_No">
-								No
-							</label>
-							<br>
-						</p>
-						<div id="previouslyWorkedMSM_response">
-							<label class="control-label" for="previouslyWorkedMSMWhenPosition">If yes, when/what
-								position?</label>
-							<input type="text" class="form-control" id="previouslyWorkedMSMWhenPosition"
-								   placeholder="Explain" name="previouslyWorkedMSMWhenPosition">
-						</div>
-					</div>
-				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -1064,7 +1132,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<br>
-				<button type="button" class="btn btn-default" id="formSubmitButton">Submit Application</button>
+				<button type="submit" class="btn btn-default" id="formSubmitButton">Submit Application</button>
 			</div>
 		</div>
 
@@ -1079,12 +1147,15 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- JQUERY UI -->
+<!-- jQuery UI -->
 <link rel="stylesheet" href="assets/js/jquery-ui/jquery-ui.min.css">
 <script src="assets/js/jquery-ui/external/jquery/jquery.js"></script>
 <script src="assets/js/jquery-ui/jquery-ui.min.js"></script>
+<!-- jQuery Validate -->
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/jquery.validate.additional-methods.js"></script>
 <!-- Custom Form Script Javascript -->
-<script type="text/javascript" src="assets/js/form-scripts.js"></script>
+<script type="text/javascript" src="assets/js/app.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
